@@ -4,6 +4,7 @@ import Hero from "../../components/Section/Hero";
 import ProductEdition from "../../components/Section/ProductEdition";
 
 const HomePage = () => {
+
     return ( 
         <main>
             <Hero />

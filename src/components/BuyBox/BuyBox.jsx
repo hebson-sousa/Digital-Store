@@ -1,129 +1,81 @@
 import { useState } from "react";
+import ProductOptions from "../ProductOptions/ProductOptions";
 import Button from "../Header/Button";
+import ProductPrice from "./ProductPrice";
 
-const BuyBox = ({name, reference, pontuacao, rating, price, priceDiscount, description }) => {
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
+const BuyBox = ({ name, category, brand, gender }) => {
+  const [selectedSize, selectedColor, setSelectedColor] = useState(null);
 
-  const handleSizeClick = (size) => {
-    setSelectedSize(size);
-  };
+  const handleSize = (size= String) => {
+    setSelectedSize(size)
+  }
 
-  const handleColorClick = (color) => {
-    setSelectedColor(color);
-  };
+  const sizes = ["39", "40", "41", "42", "43"];
+
+  const colors = [
+    { id: 1, color: "bg-cyan-500" },
+    { id: 2, color: "bg-red-500" },
+    { id: 3, color: "bg-darkGray2" },
+    { id: 4, color: "bg-purple-500" },
+  ];
+
   return (
-    <div className="buybox">
-      <div className="pb-6">
-        <h2 className="text-2xl font-bold mb-2 text-dark-gray">{name}</h2>
-        <p className="text-gray-600 text-sm mb-4">{reference}</p>
-        <div className="flex items-center pb-3 gap-5">
-          <div className="flex gap-2">
-            <img
-              className="star"
-              src="src/assets/Stars Product Option/Star 01.svg"
-              alt="Star"
-            />
-            <img
-              className="star"
-              src="src/assets/Stars Product Option/Star 01.svg"
-              alt="Star"
-            />
-            <img
-              className="star"
-              src="src/assets/Stars Product Option/Star 01.svg"
-              alt="Star"
-            />
-            <img
-              className="star"
-              src="src/assets/Stars Product Option/Star 01.svg"
-              alt="Star"
-            />
-            <img
-              className="star"
-              src="src/assets/Stars Product Option/Star 02.svg"
-              alt="Star"
-            />
-          </div>
-          <img
-            className="pontuacao"
-            src="src/assets/Stars Product Option/pontuacao.svg"
-            alt="Pontuacao"
-          />
-          <span className="text-light-gray font-medium">
-            {rating} (avaliações){" "}
-          </span>
-        </div>
-        <div className="flex items-center mb-1">
-          <div>
-            <span className="text-gray-500 line-through text-lg">R$</span>
-            <span
-              className="price-original"
-              style={{ textDecoration: "line-through", marginLeft: "8px" }}
-            >
-              {price}
-            </span>
-            <span
-              className="text-2xl font-bold mr-2 text-dark-gray"
-              style={{ marginLeft: "16px" }}
-            >
-              R$ {priceDiscount}
-            </span>
-          </div>
-        </div>
-        <div className="text-gray-900 font-medium text-sm mb-2 md:w-[35vw]">
-          <p className="text-lg md:text-md font-bold text-light-gray">
-            Tamanho
-          </p>
-          <div className="text-lg md:text-md font-bold mb-2 text-light-gray">
-            {[39, 40, 41, 42, 43].map((size) => (
-              <div
-                key={size}
-                className={`w-10 h-10 md:w-8 md:h-8 border rounded-md ${
-                  selectedSize === size
-                    ? "border-primary bg-primary text-white font-bold border-2 shadow-lg transition-all duration-200 hover:scale-110"
-                    : ""
-                }`}
-                onClick={() => handleSizeClick(size)}
-              >
-                <p>{size}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="text-gray-900 font-medium text-sm mb-2 md:w-[35vw]">
-          <p className="text-lg md:text-md font-bold text-light-gray">
-            Descrição do produto
-          </p>
-          <p className="texto-descricao">{description}</p>
-        </div>
+    <div className="flex flex-col justify-center">
+      <h1 className="text-[2rem] font-bold text-darkGray w-3/4">
+        {(name = "Tênis Nike Revolution 6 Next Nature Masculino")}
+      </h1>
+      <h2 className="text-[1rem] font-medium text-darkGray3 my-3">
+        {(category = "Casual")} &#124; {(brand = "Nike")} &#124;{" "}
+        {(gender = "REF: DD84769111")}
+      </h2>
+      <div className="flex items-center text-[1.2rem]">
+        <ProductPrice discountedPrice={219} originalPrice={219} />
+      </div>
+      <ProductOptions label="Descrição do produto">
+        <p className="flex text-darkGray2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco.
+        </p>
+      </ProductOptions>
+      <ProductOptions label="Tamanho" className="gap-2">
+        {sizes?.map((size) => (
+          <button
+            key={size}
+            onClick={() => handleSize(size)}
+            className={`flex items-center justify-center border border-lightGray2 rounded w-12 h-12 cursor-pointer text-darkGray2 text-[1rem] font-bold ease-in transition-all duration-300 ${
+              selectedSize === size
+                ? "bg-primary text-white border-none"
+                : "hover:bg-primary hover:text-white hover:border-none"
+            }`}
+          >
+            {size}
+          </button>
+        ))}
+      </ProductOptions>
+      <ProductOptions label="Cores">
         <div className="mb-4">
-          <p className="text-lg md:text-md font-bold mb-2 text-light-gray">
-            Cores
-          </p>
           <div className="flex space-x-2">
-            {["#6FEEFF", "#FF6969", "#5E5E5E", "#6D70B7"].map((color) => (
-              <div
-                key={color}
+            {colors.map((color) => (
+              <button
+                key={color.id}
                 className={`w-10 h-10 md:w-8 md:h-8 rounded-full ${
-                  selectedColor === color
+                  color.color
+                } ${
+                  selectedColor === color.color
                     ? "border-4 border-primary shadow-lg transition-all duration-200 scale-110"
                     : ""
                 }`}
-                onClick={() => handleColorClick(color)}
-                style={{ backgroundColor: color }}
-              >
-                <div></div>
-              </div>
+                onClick={() => setSelectedColor(color.color)}
+              ></button>
             ))}
           </div>
         </div>
-        <Button
-          className="w-full md:w-2/4 font-medium text-xl bg-warning hover:bg-amber-500 text-white py-3 rounded-md hover:scale-105 transition-all duration-200"
-          type={"ShopButton"}
-          content={"COMPRAR"}
-        />
-      </div>
+      </ProductOptions>
+      <Button
+        label="Comprar"
+        className="bg-warning font-bold w-52 h-12 text-white text-[1.2rem]"
+      />
     </div>
   );
 };

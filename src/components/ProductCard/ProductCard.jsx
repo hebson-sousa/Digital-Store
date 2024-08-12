@@ -1,10 +1,18 @@
 import { motion } from "framer-motion";
 import Discount from "./Discount";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ type, title, price, discount, priceDiscount, session, image }) => {
+  const navigate = useNavigate();
+
+    const handleClick = () => {
+        window.scrollTo(0, 0);
+        navigate("/produtos/*");
+    }
+
   return (
-    <motion.div
-      className="flex flex-col items-center justify-center mb-10 cursor-pointer"
+    <motion.div onClick={handleClick}
+      className="flex flex-col items-center justify-center mb-10 cursor-pointer "
       whileHover={{ scale: 1.07 }}
       whileTap={{ scale: 0.9 }}
       initial={{ y: 50 }}
@@ -39,7 +47,6 @@ const ProductCard = ({ type, title, price, discount, priceDiscount, session, ima
           {title}
         </h1>
         <div className="flex items-center">
-          {discount ? (
             <div className="flex items-center justify-center">
               <span className="text-lightGray line-through font-normal text-[24px] w-16 h-10">
                 ${(price)}
@@ -48,16 +55,6 @@ const ProductCard = ({ type, title, price, discount, priceDiscount, session, ima
                 ${(priceDiscount)}
               </span>
             </div>
-          ) : (
-            <div className="flex">
-              <span className="text-lightGray line-through font-normal text-[24px] w-16 h-10">
-                ${(price)}
-              </span>
-              <span className="text-darkGray font-bold text-[24px] w-16 h-10">
-                ${(priceDiscount)}
-              </span>
-            </div>
-          )}
         </div>
       </div>
     </motion.div>
