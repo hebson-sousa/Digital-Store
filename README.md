@@ -50,8 +50,4 @@ O projeto foi desenvolvido utilizando tecnologias modernas e seguindo boas prát
 
 ## Licença
 
-Distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais informações.
-
----
-
 Projeto desenvolvido por **[Hebson Sousa](https://github.com/hebson-sousa)**.
