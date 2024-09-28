@@ -42,7 +42,7 @@ O projeto foi desenvolvido utilizando tecnologias modernas e seguindo boas prát
    npm install
    ```
 
-5. Execute o servidor:
+3. Execute o servidor:
 
    ```bash
    npm run dev
